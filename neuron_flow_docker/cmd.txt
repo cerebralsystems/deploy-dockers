@@ -1,0 +1,19 @@
+ openssl req -x509 -newkey rsa:2048 -keyout cert/tls-proxy-key.pem -out  cert/tls-proxy-crt.pem -days 3650 -nodes -subj '/CN=tls-proxy-envoy'
+
+
+docker-compose pull
+docker-compose up --build -d
+docker-compose ps
+docker-compose down
+
+curl -sk https://localhost:10001
+curl -sk http://localhost:10002
+
+
+To delete all containers including its volumes use,
+
+docker rm -vf $(docker ps -a -q)
+To delete all the images,
+
+docker rmi -f $(docker images -a -q)
+

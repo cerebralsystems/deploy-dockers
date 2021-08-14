@@ -1,0 +1,12 @@
+FROM  ubuntu:20.04
+#FROM  node:16.0-alpine
+
+COPY ./neuron_flow /root/neuron/neuron_flow
+COPY ./neuron_flow.cert /root/neuron/neuron_flow.cert
+COPY ./neuron_flow.key /root/neuron/neuron_flow.key
+RUN chmod go+rx /root/neuron/neuron_flow
+RUN chmod go+r /root/neuron/neuron_flow.cert /root/neuron/neuron_flow.key
+CMD ["/root/neuron/neuron_flow", "/root/neuron"]
+
+EXPOSE 5335 5334
+

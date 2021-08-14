@@ -1,0 +1,11 @@
+version: "3.7"
+services:
+
+  neuron_flow:
+    build:
+      context: .
+      dockerfile: Dockerfile-neuron_flow
+    ports:
+      - "5335:5335"
+      - "5334:5334"
+

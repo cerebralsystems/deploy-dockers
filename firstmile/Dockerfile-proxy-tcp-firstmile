@@ -1,0 +1,7 @@
+FROM envoyproxy/envoy-dev:latest
+  
+COPY ./envoy-tcp-firstmile-2listener.yaml /etc/envoy.yaml
+RUN chmod go+r /etc/envoy.yaml
+RUN mv /usr/local/bin/envoy /usr/local/bin/envoy.org
+COPY ./envoy /usr/local/bin/envoy
+CMD ["/usr/local/bin/envoy", "-c /etc/envoy.yaml",  "-l debug", "--service-cluster 'proxy-ssl-to-ssl'", "--service-node 'proxy-ssl-to-ssl'", "--log-format '[METADATA][%Y-%m-%d %T.%e][%t][%l][%n] %v'"]

@@ -1,0 +1,13 @@
+FROM  ubuntu:20.04
+#FROM  node:16.0-alpine
+
+COPY ./ntd_flow /root/ntd_flow/ntd_flow
+COPY ./neuron_flow.cert /root/ntd_flow/neuron_flow.cert
+COPY ./neuron_flow.key /root/ntd_flow/neuron_flow.key
+RUN chmod go+rx /root/ntd_flow/ntd_flow
+RUN chmod go+r /root/ntd_flow/neuron_flow.cert /root/ntd_flow/neuron_flow.key
+VOLUME /home/ubuntu/ntd_flow_data /root/ntd_flow/data
+CMD ["/root/ntd_flow/ntd_flow", "/root/ntd_flow"]
+
+EXPOSE 4443 4440
+

@@ -1,0 +1,34 @@
+version: "3.7"
+services:
+
+  proxy-tcp-firstmile:
+    build:
+      context: .
+      dockerfile: Dockerfile-proxy-tcp-firstmile
+    volumes:
+      - type: bind
+        source: /home/ubuntu/ntd_flow_data
+        target: /root/ntd_flow_data
+
+    ports:
+      - "443:10000"
+      - "3389:3389"
+      - "9901:9901"
+
+  statsd_exporter:
+    image: prom/statsd-exporter:latest
+    ports:
+    - "9125:9125"
+    - "9102:9102"
+
+  ntd_flow:
+    build:
+      context: .
+      dockerfile: Dockerfile-ntd_flow
+    volumes:
+      - type: bind
+        source: /home/ubuntu/ntd_flow_data
+        target: /root/ntd_flow/data
+    ports:
+      - "4443:4443"
+      - "4440:4440"
